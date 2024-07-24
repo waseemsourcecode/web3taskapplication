@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:web3shopping_app/clean_architech/features/presentation/screens/authorizatin/login_screen.dart';
 
 import '../../../core/global_functions.dart';
 import '../screens/splash_screen.dart';
@@ -62,13 +63,13 @@ class AppRoutes {
           routeSettings: settings,
         );
      
-      // case AppScreens.login:
-      //   return materialBuilder(
-      //     widget: PageLogin(
-      //       dataBox: settings.arguments as LoginDataBox,
-      //     ),
-      //     routeSettings: settings,
-      //   );
+      case AppScreens.login:
+        return materialBuilder(
+          widget: const LoginScreen(
+           
+          ),
+          routeSettings: settings,
+        );
       // case PageConst.signup:
       //   return materialBuilder(
       //     widget: const PageSignUp(),

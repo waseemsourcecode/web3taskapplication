@@ -1,11 +1,12 @@
  
 
+import 'package:web3shopping_app/clean_architech/features/data/ds_local/local_data_source.dart';
 import 'package:web3shopping_app/clean_architech/features/data/models/model_user.dart';
 
 import '../../domain/repositories/local_domain_repo.dart';
 
 class LocalDataRepoImpl implements LocalDomainRepository {
-  final LocalDomainRepository localDataSource;
+  final LocalDataSource localDataSource;
 
   LocalDataRepoImpl({required this.localDataSource});
  

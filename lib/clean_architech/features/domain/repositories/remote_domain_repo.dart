@@ -1,9 +1,11 @@
 
-import 'dart:ffi';
+ 
+
+import '../../data/models/model_responsebox.dart';
 
 abstract class RemoteDomainRepository {
-  Future<Bool> login(Map<String, String> body);
-  // Future<void> signOut();
+  Future<ModelResponseBox> login(Map<String, String> body);
+  Future<ModelResponseBox> signOut();
 
   // Future<ModelResponseBox> login(Map<String, String> body);
 

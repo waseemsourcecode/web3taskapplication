@@ -1,3 +1,5 @@
 class AppImages {
-  static const finger_print = "assets/images/finger_print.png";
+  static const logo = "assets/images/logo.png";
+
+  static String globalBG = "assets/images/globalbg.png";
 }

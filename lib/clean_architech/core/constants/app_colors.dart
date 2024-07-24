@@ -26,8 +26,7 @@ class AppColors {
   static const sheetBG   =   Color.fromRGBO(24, 26, 58, 1);
   AppColors._();
   //rgba(229, 34, 58, 1)
-  static const Color primary =
-      Color(0xEEE5223A); //E5223A #E5223A background: #E5223A;
+  static const Color primary =Color.fromRGBO(246, 167, 36, 1); //E5223A #E5223A background: #E5223A;
   static const Color secondary = Color(0xFF151627); //#151627
   static const Color pageBg = Color(0xFFF5F6FA); //9F9D9D F3F2F9 #D9D9D9
   static const Color tableOddRow = Color(0xFFF6E6E6);

@@ -2,10 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter_animate/flutter_animate.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:web3shopping_app/clean_architech/core/constants/app_images.dart';
 import 'package:web3shopping_app/clean_architech/features/presentation/cubits/authorization/cubit_auth.dart';
 import 'package:web3shopping_app/clean_architech/features/presentation/cubits/authorization/state_auth.dart';
-
 import '../../../core/constants/app_colors.dart';
 import '../../../core/global_functions.dart';
 import '../routers/app_navigations.dart';
@@ -34,18 +34,18 @@ class ScreenSplash extends StatelessWidget {
   //   print(ThemeMode.system.name);
 
   // }
-
+//https://dribbble.com/shots/18408638-E-Commerce-App
   @override
   Widget build(BuildContext context) {
     return BlocBuilder<CubitAuth, StateAuth>(builder: (context, state) {
       onConsole("STATE IS **** $state");
       if (state is AuthenticatedState) {
-        waitAndMove(context, AppScreens.dashBoard, state);
+        waitAndMove(context, AppScreens.home, state);
         // return PageDashBoard();
       }
-      //  else if (state is UnAuthenticatedState) {
-      //   waitAndMove(context, PageConst.loginDecision);
-      // } 
+       else if (state is UnAuthenticatedState) {
+        waitAndMove(context, AppScreens.login);
+      } 
       // else if (state is AuthticatedAsGuest) {
       //   waitAndMove(context, PageConst.dashBoard, state);
       // } else if (state is NewToAppState) {
@@ -54,52 +54,31 @@ class ScreenSplash extends StatelessWidget {
 
       //return Container(color: Colors.amber,);
       return Scaffold(
-        body: Container(
-          color: (Theme.of(context).brightness == Brightness.light)
-              ? AppColors.primary
-              : AppColors.secondary, //Theme.of(context).colorScheme.secondary,
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            //fit: StackFit.expand,
-            children: [
-              Expanded(
-                child: Align(
-                  alignment: Alignment.topRight,
-                  child: Image.asset(
-                    AppImages.finger_print,
-                    height: 200.h,
-                    width: 300.w,
-                    fit: BoxFit.cover,
-                  ),
-                ),
-              ),
-              Animate(
+        body: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+ Animate(
                 effects: const [FadeEffect(), ScaleEffect()],
                 child: Center(
                   child: Padding(
-                    padding: const EdgeInsets.all(10.0),
+                    padding: const EdgeInsets.only(left:50.0,right: 50.0),
                     child: Image.asset(
-                       AppImages.finger_print,
-                      width: 211.w,
-                      height: 40.h,
-                      fit: BoxFit.fitWidth,
+                       AppImages.logo,
+                    //  width: 211.w,
+                    //  height: 40.h,
+                      fit: BoxFit.fill,
                     ),
                   ),
                 ),
               ),
-              Expanded(
-                child: Align(
-                  alignment: Alignment.bottomLeft,
-                  child: Image.asset(
-                     AppImages.finger_print,
-                    height: 190.h,
-                    width: 220.w,
-                    fit: BoxFit.cover,
-                  ),
-                ),
-              ),
-            ],
-          ),
+              Text("W3 Shoppings",style: GoogleFonts.nunitoSans(fontSize:38))
+        
+          ],
+          // color: (Theme.of(context).brightness == Brightness.light)
+          //     ? AppColors.primary
+          //     : AppColors.secondary, 
+              //Theme.of(context).colorScheme.secondary,
+         
         ),
       );
     });

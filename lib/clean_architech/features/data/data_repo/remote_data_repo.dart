@@ -1,20 +1,22 @@
-import 'dart:async';
-import 'dart:ffi';
+import 'dart:async'; 
 import 'package:web3shopping_app/clean_architech/features/domain/repositories/remote_domain_repo.dart';
+
+import '../ds_remote/remote_data_source.dart';
+import '../models/model_responsebox.dart';
  
 
 class RemoteRepoImpl implements RemoteDomainRepository {
-  final RemoteDomainRepository remoteDataSource;
+  final RemoteDataSource remoteDataSource;
 
   RemoteRepoImpl({required this.remoteDataSource});
 
   @override
-  Future<void> signOut() {
+  Future<ModelResponseBox> signOut() {
     throw UnimplementedError();
   }
 
   @override
-  Future<Bool> login(Map<String, String> body) async {
+  Future<ModelResponseBox> login(Map<String, String> body) async {
     return remoteDataSource.login(body);
   }
 

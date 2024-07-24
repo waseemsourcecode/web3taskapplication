@@ -6,6 +6,8 @@ import 'package:web3shopping_app/clean_architech/features/data/ds_local/local_da
 import 'package:web3shopping_app/clean_architech/features/data/ds_local/local_ds_impl.dart';
 import 'package:web3shopping_app/clean_architech/features/domain/repositories/local_domain_repo.dart';
 import 'package:web3shopping_app/clean_architech/features/domain/repositories/remote_domain_repo.dart';
+import 'package:web3shopping_app/clean_architech/features/domain/usecases/uc_userauth.dart';
+import 'package:web3shopping_app/clean_architech/features/presentation/cubits/authorization/cubit_auth.dart';
 
 import 'clean_architech/features/data/data_repo/local_data_repo_impl.dart';
 import 'clean_architech/features/data/data_repo/remote_data_repo.dart';
@@ -59,12 +61,12 @@ Future<void> init() async {
 }
 
 void registerCubits() {
-  //sl.registerFactory<CubitBreachAccess>(() => CubitBreachAccess(uc: sl.call()));
+sl.registerFactory<CubitAuth>(() => CubitAuth(userAuthUseCase: sl.call()));
   
  }
 
 void registerUseCases() {
-  // sl.registerLazySingleton<UseCaseCVEngine>(
-  //     () => UseCaseCVEngine(remoteRepo: sl.call()));
+  sl.registerLazySingleton<UseCaseUserAuth>(
+      () => UseCaseUserAuth(localRepository: sl.call(),remoteRepository: sl.call()));
 
 }
