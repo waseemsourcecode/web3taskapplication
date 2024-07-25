@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
 
 import '../../../core/constants/app_colors.dart';
  
@@ -9,10 +10,12 @@ import '../../../core/constants/app_colors.dart';
       useMaterial3: true,
       scaffoldBackgroundColor: AppColors.white,
       primarySwatch: buildMaterialColor(AppColors.white),
-      textTheme: Theme.of(context).textTheme.apply(
-            fontFamily: "Duplet",
-            bodyColor: Colors.black87,
-          ),
+      // textTheme: 
+      
+      // Theme.of(context).textTheme.apply(
+      //       fontFamily: GoogleFonts().nunitoSans,
+      //       bodyColor: Colors.black87,
+      //     ),
       inputDecorationTheme: InputDecorationTheme(
         contentPadding: const EdgeInsets.symmetric(horizontal: 40),
         hintStyle: const TextStyle(
@@ -44,8 +47,9 @@ import '../../../core/constants/app_colors.dart';
           // onSurface: Colors.orange, //specify the button's disabled text, icon, and fill color
           shadowColor: Colors.white, //specify the button's elevation color
           // elevation: 4.0, //buttons Material shadow
-          textStyle: const TextStyle(
-              fontFamily: 'Duplet',
+          textStyle: 
+          GoogleFonts.nunitoSans(
+            
               fontSize: 14,
               fontWeight:
                   FontWeight.w500), //specify the button's text TextStyle

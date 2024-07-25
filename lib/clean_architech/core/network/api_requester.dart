@@ -45,15 +45,15 @@ extension ApiRequester on RemoteDataSourceImpl {
       }
 
       var token = "";
-      try {
-        final session = box.get(LocalSavingKeys.sessionToken);
-        if (session != null) {
-          token = session!; //data[LocalSavingKeys.sessionToken];
-        }
-      } catch (e) {
-        onConsole("ERROR WHILE FETCHING TOKEN $e");
-        //no need to return here because some api work without token
-      }
+      // try {
+      //   final session = box.get(LocalSavingKeys.sessionToken);
+      //   if (session != null) {
+      //     token = session!; //data[LocalSavingKeys.sessionToken];
+      //   }
+      // } catch (e) {
+      //   onConsole("ERROR WHILE FETCHING TOKEN $e");
+      //   //no need to return here because some api work without token
+      // }
       //    onConsole("TOKEN***************");
 //onConsole(token);
       Map<String, String> requestHeaders = {

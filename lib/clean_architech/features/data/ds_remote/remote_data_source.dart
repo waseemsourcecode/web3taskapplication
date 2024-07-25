@@ -1,5 +1,6 @@
 
 
+import 'package:web3shopping_app/clean_architech/features/data/models/model_product.dart';
 import 'package:web3shopping_app/clean_architech/features/data/models/model_responsebox.dart';
 
 abstract class RemoteDataSource {
@@ -9,6 +10,8 @@ abstract class RemoteDataSource {
   Future<ModelResponseBox> login(Map<String, String> body);
 
   Future<ModelResponseBox> register(Map<String, String> body);
+
+  Future<ModelResponseBox> loadAllProducts();
 
   // Future<ModelResponseBox> getCountryDataFromRemote();
 

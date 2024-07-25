@@ -1,7 +1,9 @@
-import 'dart:convert';
+ 
 
 import 'package:hive/hive.dart';
 import 'package:web3shopping_app/clean_architech/features/data/ds_local/local_data_source.dart';
+import 'package:web3shopping_app/clean_architech/features/data/models/model_responsebox.dart';
+import 'package:web3shopping_app/clean_architech/features/data/models/model_user.dart';
  
 import '../../../core/global_functions.dart';
 
@@ -16,137 +18,45 @@ class LocalDataSourceImpl implements LocalDataSource {
     // localDataBase.setString('email', email);
   }
 
-  @override
-  bool authorizedUser(Map userCredentials) {
-    try {
-      final email = userCredentials[LocalSavingKeys.email];
-      box.put(LocalSavingKeys.email, email);
-      // userCredentials.remove(LocalSavingKeys.email);
-      box.put(LocalSavingKeys.userCredentials, userCredentials);
-      return true;
-    } catch (e) {
-      // onConsole(e);
-      // toast('Error while saving');
-      return false;
-    }
-  }
+   
 
   @override
   void logoutFromTheApp() {
     try {
-      box.delete(LocalSavingKeys.profile);
-      box.delete(LocalSavingKeys.guestAgreed);
-      // box.delete(LocalSavingKeys.userCredentials);
-      // box.delete(LocalSavingKeys.iso);
-      // box.delete(LocalSavingKeys.primaryLoc);
-      // box.delete(LocalSavingKeys.badge);
-      // box.deleteFromDisk();
-      box.delete(LocalSavingKeys.sessionToken);
+      box.delete(LocalSavingKeys.isLogin);
+       
      // onConsole("USER CREDENTIALS DELETED");
     } catch (e) {
      // onConsole(e);
+      box.delete(LocalSavingKeys.isLogin);
     }
   }
 
   @override
-  bool checkAuthentication() {
+  ModelUser? checkAuthentication() {
     try {
       // final email = userCredentials[localSavingKeys.email.name];
-      final isUserNewToApp = box.get(LocalSavingKeys.checkInOnboard);
-      if (isUserNewToApp == null) {
-        return false;
+      final isUserNewToApp = box.get(LocalSavingKeys.isLogin);
+      onConsole("ISLOGIN $isUserNewToApp");
+      if (isUserNewToApp == null) { 
+        return null;
       } else {
-       return true;
+         // final email = userCredentials[localSavingKeys.email.name];
+         // final email = userCredentials[localSavingKeys.email.name];
+      final email = box.get(LocalSavingKeys.email);
+       final userName = box.get(LocalSavingKeys.username);
+       final obj = ModelUser(id: 1, userName: userName, password: "", email: email);
+       return obj;
 
         
       }
     } catch (e) {
       onConsole(e);
-        return false;
+        return null;
     }
   }
 
-  @override
-  dynamic getUserSavedData(String key) {
-    try {
-      onConsole("*************************LOCAL DECODED DATA**********");
-      // box.delete(key);
-      // final email = userCredentials[localSavingKeys.email.name];
-      final data = box.get(key);
-      // onConsole("Showing raw data ");
-      // onConsole(data);
-      if (data != null) {
-        // if(key == LocalSavingKeys.badge){
-        //   ret
-        // }
-        // if (key == LocalSavingKeys.country) {
-        //   var convertDataToJson = json.decode(data);
-        //   // onConsole(convertDataToJson);
-        //   final inModelForm = ModelCountry.fromJson(convertDataToJson);
-        //   return inModelForm;
-        // } else if (key == LocalSavingKeys.primaryLoc) {
-        //   var convertDataToJson = json.decode(data);
-        //   onConsole(convertDataToJson);
-        //   final inModelForm = CountryDatum.fromJson(convertDataToJson);
-        //   return inModelForm;
-        // } else if (key == LocalSavingKeys.secondaryLoc) {
-        //   var convertDataToJson = json.decode(data);
-        //   onConsole(convertDataToJson);
-        //   final inModelForm = CountryDatum.fromJson(convertDataToJson);
-        //   return inModelForm;
-        // } else if (key == LocalSavingKeys.profile) {
-        //   var convertDataToJson = json.decode(data);
-        //   onConsole(convertDataToJson);
-        //   final inModelForm = DataProfile.fromJson(convertDataToJson);
-        //   return inModelForm;
-        // }
-        return data;
-      }
-      return null;
-    } catch (e) {
-      onConsole("'Error while loading data' $e with key $key");
-      toast('Error while loading data');
-      return null;
-    }
-  }
-
-  @override
-  void saveData(
-      {bool encoding = false, required cData, required String forKey}) {
-    try {
-      if (encoding) {
-        onConsole("*************************Saving Encoding**********");
-        final encodedData = json.encode(cData);
-        onConsole(encodedData);
-
-        if (forKey == LocalSavingKeys.primaryLoc) {
-          // box.put(forKey, encodedData);
-          // final dType = cData as CountryDatum;
-          // final iso = dType.iso;
-          // //  onConsole("BARIER::::::::::::::::::*************%%%%%%");
-          // onConsole(iso);
-          // box.put(LocalSavingKeys.iso, iso);
-        } else if (forKey == LocalSavingKeys.secondaryLoc) {
-          // box.put(forKey, encodedData);
-          // final dType = cData as CountryDatum;
-          // final iso = dType.iso;
-          // //  onConsole("BARIER::::::::::::::::::*************%%%%%%");
-          // onConsole(iso);
-          // box.put(LocalSavingKeys.secondaryLoc, iso);
-        } else {
-          box.put(forKey, encodedData);
-        }
-      } else {
-        box.put(forKey, cData);
-      }
-      onConsole("*************************SAVED SUCCESS**********");
-    } catch (e) {
-      // onConsole("*************************LOCAL ERROR**********");
-      onConsole('Exception at Local Storage$e with key:$forKey');
-      // onConsole('Exception data was $cData');
-    }
-  }
-
+ 
   @override
   void removeData(String key) {
     try {
@@ -156,18 +66,95 @@ class LocalDataSourceImpl implements LocalDataSource {
     }
   }
 
+ 
   @override
-  List<dynamic> findHomeBoardWidgetStatus() {
+  ModelUser? login(Map userCredentials) {
     try {
-      final widgets = box.get(LocalSavingKeys.homeWidgets);
-      onConsole(widgets);
-      if (widgets != null) {
-        return widgets;
+      onConsole("*************************LOCAL DECODED DATA**********");
+      // box.delete(key);
+      // final email = userCredentials[localSavingKeys.email.name];
+      final data = box.get(LocalSavingKeys.username);
+         final email = box.get(LocalSavingKeys.email);
+        //    final password = box.get("password"); 
+      // onConsole("Showing raw data ");
+      // onConsole(data);
+      if (data != null) {
+        if(email == userCredentials["email"]){
+          return ModelUser(id: 1, userName: data, email: email,password: "");
+        }else {
+          return null;
+        }
+             
       }
-      return [];
+      return null;
     } catch (e) {
-      onConsole("EXCEPTION: $e");
-      return [];
+      onConsole("'Error while loading data' $e with key ");
+      toast('Error while loading data');
+      return null;
+    }
+  }
+  
+  @override
+  ModelResponseBox registerUser(ModelUser obj) {
+    try {
+      onConsole("*************************LOCAL REGISTER DECODED DATA**********");
+      // box.delete(key);
+      // final email = userCredentials[localSavingKeys.email.name];
+      
+         final email = box.get("email"); 
+       onConsole("Showing raw data $email");
+      // onConsole(data);
+      if (email != null) {
+
+        if(email == obj.email){
+          return ModelResponseBox(responseData: "user alreadyb registered",responseSituation: DataResponseStatus.failed);
+        }else {
+           box.put(LocalSavingKeys.email, obj.email);
+            box.put(LocalSavingKeys.username, obj.userName);
+        return ModelResponseBox(responseData: "user registered",responseSituation: DataResponseStatus.success);
+        }
+             
+      }else{
+         box.put(LocalSavingKeys.email, obj.email);
+            box.put(LocalSavingKeys.username, obj.userName);
+          return ModelResponseBox(responseData: "user registered",responseSituation: DataResponseStatus.success);
+       
+      }
+     
+    } catch (e) {
+      onConsole("'Error while loading data' $e with key ");
+      toast('Error while loading data');
+        return ModelResponseBox(responseData: "user failed to registered",responseSituation: DataResponseStatus.failed);
+       
+    }
+  }
+  
+  @override
+  void saveLogin() {
+    box.put(LocalSavingKeys.isLogin, true);
+  }
+  
+  @override
+  ModelUser? loadUserProfile() {
+    try {
+      // final email = userCredentials[localSavingKeys.email.name];
+      final isUserNewToApp = box.get(LocalSavingKeys.isLogin);
+      onConsole("ISLOGIN $isUserNewToApp");
+      if (isUserNewToApp == null) { 
+        return null;
+      } else {
+         // final email = userCredentials[localSavingKeys.email.name];
+         // final email = userCredentials[localSavingKeys.email.name];
+      final email = box.get(LocalSavingKeys.email);
+       final userName = box.get(LocalSavingKeys.username);
+       final obj = ModelUser(id: 1, userName: userName, password: "", email: email);
+       return obj;
+
+        
+      }
+    } catch (e) {
+      onConsole(e);
+        return null;
     }
   }
 
@@ -176,27 +163,14 @@ class LocalDataSourceImpl implements LocalDataSource {
 
 //::::::::::::::::::::::::::::::KEYS FOR HANDLING HIVE DATA BASE::::::::::::::::;;;;
 
-class LocalSavingKeys {
-  static const checkInOnboard = "cfffheckInOnboard";
-
-  static const homeWidgets = "homeWidgets";
-
-  static const guestAgreed = "guestAgreed";
-  LocalSavingKeys._();
-  static const userCredentials = "userCredentials";
-  static const sessionToken = "sessionToken";
-  static const badge = "badge";
+class LocalSavingKeys {  
+  
+  static var isLogin = "guestAgreed";
+  LocalSavingKeys._(); 
+  static const username = "username";
   static const userID = "userID";
-  static const email = "email";
-  static const country = "country";
-  static const profile = "profile";
-
-  static const baseLocationID = "baseLocationID";
-
-  static const primaryLoc = "primaryLoc";
-  static const secondaryLoc =
-      "secondaryLoc"; //when user choose location at home
-  static const iso = "iso";
+  static const email = "email"; 
+ 
 
   //  , , ,
 }

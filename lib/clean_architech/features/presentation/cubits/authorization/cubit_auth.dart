@@ -13,7 +13,7 @@ class CubitAuth extends Cubit<StateAuth> {
   Future<void> appStarted() async {
     try {
       final appState = userAuthUseCase.checkAuthentication();
-     // onConsole('appState $appState');
+     onConsole('appState $appState');
 if(appState != null){
  emit(AuthenticatedState(userData: appState));
 }else{
@@ -34,7 +34,7 @@ if(appState != null){
       //   // emit(const GuestMode());
       // }
     } catch (e) {
-     // onConsole(e);
+      onConsole(e);
       emit(UnAuthenticatedState());
       //emit(const GuestMode());
     }
@@ -90,7 +90,7 @@ if(appState != null){
       final status =   userAuthUseCase.login(map);
 
       //   onConsole('isSignIn $isSignIn');
-      if (status) {
+      if (status != null) {
         // final data = status.responseData as ModelLogin;
 
         // userAuthUseCase.saveUserData(

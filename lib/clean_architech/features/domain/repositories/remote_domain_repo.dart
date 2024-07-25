@@ -1,25 +1,18 @@
 
  
 
+import 'dart:async';
+
+import 'package:web3shopping_app/clean_architech/features/data/models/model_product.dart';
+
 import '../../data/models/model_responsebox.dart';
 
 abstract class RemoteDomainRepository {
   Future<ModelResponseBox> login(Map<String, String> body);
   Future<ModelResponseBox> signOut();
 
-  // Future<ModelResponseBox> login(Map<String, String> body);
-
-  // Future<ModelResponseBox> register(Map<String, String> body);
-
-  // Future<ModelResponseBox> getCountryDataFromRemote();
-  // Future<ModelResponseBox> requestToForgotPassword(String email);
-  // //::::::::::::::::::DASHBOARD:::::::::::::
-  // Future<ModelResponseBox> requestNews(
-  //     int pageNo, EnumNewsData newsType, Map<String, String>? anyGetBody);
-
-  // Future<ModelResponseBox> getLeakageData(String locationId, String pgNo);
-
-  // Future<ModelResponseBox> getFaqData();
+ Future< ModelResponseBox> loadAllProducts() ;
+ 
 
   // Future<ModelResponseBox> getProfileData();
   // Future<ModelResponseBox> fetchDataFromServer(

@@ -6,8 +6,12 @@ import 'package:web3shopping_app/clean_architech/features/data/ds_local/local_da
 import 'package:web3shopping_app/clean_architech/features/data/ds_local/local_ds_impl.dart';
 import 'package:web3shopping_app/clean_architech/features/domain/repositories/local_domain_repo.dart';
 import 'package:web3shopping_app/clean_architech/features/domain/repositories/remote_domain_repo.dart';
+import 'package:web3shopping_app/clean_architech/features/domain/usecases/uc_product.dart';
 import 'package:web3shopping_app/clean_architech/features/domain/usecases/uc_userauth.dart';
 import 'package:web3shopping_app/clean_architech/features/presentation/cubits/authorization/cubit_auth.dart';
+import 'package:web3shopping_app/clean_architech/features/presentation/cubits/login/cubit_login.dart';
+import 'package:web3shopping_app/clean_architech/features/presentation/cubits/products/cubit_product.dart';
+import 'package:web3shopping_app/clean_architech/features/presentation/cubits/profile/cubit_profile.dart';
 
 import 'clean_architech/features/data/data_repo/local_data_repo_impl.dart';
 import 'clean_architech/features/data/data_repo/remote_data_repo.dart';
@@ -46,7 +50,7 @@ Future<void> init() async {
   // sl.registerLazySingleton<http.Client>(() => httpClient);
 
   final dio = Dio()
-    ..options.baseUrl = "https://offset7.com/api/"
+    ..options.baseUrl = "https://fakestoreapi.com/"
     ..interceptors.add(LogInterceptor())
     ..httpClientAdapter = Http2Adapter(ConnectionManager(
       idleTimeout: const Duration(seconds: 15),
@@ -62,11 +66,16 @@ Future<void> init() async {
 
 void registerCubits() {
 sl.registerFactory<CubitAuth>(() => CubitAuth(userAuthUseCase: sl.call()));
-  
+  sl.registerFactory<CubitRegister>(() => CubitRegister(userAuthUseCase: sl.call()));
+   sl.registerFactory<CubitProduct>(() => CubitProduct(uc: sl.call()));
+  sl.registerFactory<CubitProfile>(() => CubitProfile(uc: sl.call()));
+ 
  }
 
 void registerUseCases() {
   sl.registerLazySingleton<UseCaseUserAuth>(
       () => UseCaseUserAuth(localRepository: sl.call(),remoteRepository: sl.call()));
+  sl.registerLazySingleton<UseCaseProduct>(
+      () => UseCaseProduct(localRepository: sl.call(),remoteRepository: sl.call()));
 
 }

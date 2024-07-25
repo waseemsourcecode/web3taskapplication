@@ -1,22 +1,20 @@
 
+
+import 'package:web3shopping_app/clean_architech/features/data/models/model_product.dart';
 import 'package:web3shopping_app/clean_architech/features/data/models/model_responsebox.dart';
 import 'package:web3shopping_app/clean_architech/features/data/models/model_user.dart';
 import 'package:web3shopping_app/clean_architech/features/domain/repositories/local_domain_repo.dart';
 import 'package:web3shopping_app/clean_architech/features/domain/repositories/remote_domain_repo.dart';
  
 
-class UseCaseUserAuth {
+class UseCaseProduct {
   final RemoteDomainRepository remoteRepository;
   final LocalDomainRepository localRepository;
-  UseCaseUserAuth(
+  UseCaseProduct(
       {required this.localRepository, required this.remoteRepository});
-  //this will be called in cubit
-  void logoutFromTheApp() {
-   localRepository.logoutFromTheApp();
-  }
-
-  ModelUser? checkAuthentication() {
-    return localRepository.checkAuthentication();
+ 
+  Future<ModelResponseBox> loadAllProducts() async{
+    return  await remoteRepository.loadAllProducts();
   }
  
  
@@ -37,8 +35,4 @@ class UseCaseUserAuth {
     }
     return status;
   }
-
- ModelUser? loadprofileData() {
-  return  localRepository.loadUserProfile();
- }
 }

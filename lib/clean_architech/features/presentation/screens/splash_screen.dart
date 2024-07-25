@@ -14,26 +14,7 @@ import '../routers/app_screens.dart';
 
 class ScreenSplash extends StatelessWidget {
   const ScreenSplash({super.key});
-
-//   final topSpace = const SizedBox(
-//     height: 30,
-//   );
-
-//   const PageSplash({super.key});
-
-//   @override
-//   State<StatefulWidget> createState() {
-//     return _PageSplashState();
-//   }
-// }
-
-// class _PageSplashState extends State<PageSplash> {
-  // @override
-  // void initState() {
-  //   super.initState();
-  //   print(ThemeMode.system.name);
-
-  // }
+ 
 //https://dribbble.com/shots/18408638-E-Commerce-App
   @override
   Widget build(BuildContext context) {

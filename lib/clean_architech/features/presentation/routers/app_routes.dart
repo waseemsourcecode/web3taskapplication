@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:web3shopping_app/clean_architech/features/presentation/screens/authorizatin/login_screen.dart';
+import 'package:web3shopping_app/clean_architech/features/presentation/screens/authorizatin/login/login_screen.dart';
+import 'package:web3shopping_app/clean_architech/features/presentation/screens/dashboard/home_screen.dart';
 
 import '../../../core/global_functions.dart';
 import '../screens/splash_screen.dart';
@@ -66,6 +67,13 @@ class AppRoutes {
       case AppScreens.login:
         return materialBuilder(
           widget: const LoginScreen(
+           
+          ),
+          routeSettings: settings,
+        );
+         case AppScreens.home:
+        return materialBuilder(
+          widget:   HomeScreen(
            
           ),
           routeSettings: settings,

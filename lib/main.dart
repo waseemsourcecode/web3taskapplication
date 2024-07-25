@@ -3,6 +3,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:web3shopping_app/clean_architech/features/presentation/cubits/authorization/cubit_auth.dart';
+import 'package:web3shopping_app/clean_architech/features/presentation/cubits/login/cubit_login.dart';
+import 'package:web3shopping_app/clean_architech/features/presentation/cubits/products/cubit_product.dart';
+import 'package:web3shopping_app/clean_architech/features/presentation/cubits/profile/cubit_profile.dart';
 import 'clean_architech/features/presentation/routers/app_routes.dart';
 import 'clean_architech/features/presentation/themes/dark_theme.dart';
 import 'clean_architech/features/presentation/themes/light_theme.dart';
@@ -44,18 +47,21 @@ class MyApp extends StatelessWidget {
         BlocProvider<CubitAuth>(
           create: (_) => di.sl<CubitAuth>()..appStarted(),
         ),
-        
+          BlocProvider<CubitRegister>(
+          create: (_) => di.sl<CubitRegister>(),
+        ),
+        BlocProvider<CubitProduct>(
+          create: (_) => di.sl<CubitProduct>(),
+        ),
+         BlocProvider<CubitProfile>(
+          create: (_) => di.sl<CubitProfile>(),
+        ),
        
       ],
       child: MaterialApp(
-        title: 'Offset',
-        // localizationsDelegates: context.localizationDelegates,
-        // supportedLocales: context.supportedLocales,
-        // locale: context.locale,
+        title: 'Web3Shopping', 
         debugShowCheckedModeBanner: true,
-        themeMode: ThemeMode.dark,
-
-        // themeMode: ThemeMode.system,
+        themeMode: ThemeMode.dark, 
 
         theme: lightTheme(context),
         darkTheme: lightTheme(context),
