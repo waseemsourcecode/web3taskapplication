@@ -17,7 +17,9 @@ class UseCaseProduct {
     return  await remoteRepository.loadAllProducts();
   }
  
- 
+ void favouriteProduct(int id){
+  localRepository.favouriteProduct(id);
+ }
   ModelUser? login(Map userCredentials) {
     final status = localRepository.login(userCredentials);
     if(status != null){
@@ -34,5 +36,9 @@ class UseCaseProduct {
       localRepository.saveLogin();
     }
     return status;
+  }
+
+  List<dynamic> getFavID() {
+    return localRepository.getFavID();
   }
 }

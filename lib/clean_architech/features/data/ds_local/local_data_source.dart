@@ -24,4 +24,8 @@ abstract class LocalDataSource {
   void saveLogin() ;
 
   ModelUser? loadUserProfile();
+
+  void favouriteProduct(int id);
+
+  List<dynamic> getFavID();
 }

@@ -16,5 +16,9 @@ abstract class LocalDomainRepository {
   ModelUser? loadUserProfile();
 
   void logoutFromTheApp() {}
+
+  void favouriteProduct(int id) {}
+
+  List<dynamic> getFavID() ;
  
 }

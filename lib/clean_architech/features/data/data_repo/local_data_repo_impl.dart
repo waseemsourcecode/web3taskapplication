@@ -42,6 +42,16 @@ class LocalDataRepoImpl implements LocalDomainRepository {
   void logoutFromTheApp() {
    localDataSource.logoutFromTheApp();
   }
+  
+  @override
+  void favouriteProduct(int id) {
+    localDataSource.favouriteProduct(id);
+  }
+  
+  @override
+  List<dynamic> getFavID() {
+   return  localDataSource.getFavID();
+  }
  
   
   

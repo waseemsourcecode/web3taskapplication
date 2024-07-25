@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:web3shopping_app/clean_architech/core/constants/app_dimens.dart';
 import 'package:web3shopping_app/clean_architech/core/global_functions.dart';
 import 'package:web3shopping_app/clean_architech/features/data/models/model_product.dart';
+import 'package:web3shopping_app/clean_architech/features/presentation/cubits/products/cubit_product.dart';
 import 'package:web3shopping_app/clean_architech/features/presentation/widgets/app_elevated_button.dart';
 import 'package:web3shopping_app/clean_architech/features/presentation/widgets/custom_label.dart';
 import 'package:web3shopping_app/clean_architech/features/presentation/widgets/widget_net_image.dart';
@@ -56,7 +58,10 @@ class DetailScreen extends StatelessWidget {
          }, icon: Icon(Icons.arrow_back)),
          
          Expanded(child: CustomLabel(forceAlignment: TextAlign.center, text: data.title, type: TextStyleType.f18_600)),
-         Icon(Icons.shop)
+        IconButton(onPressed: (){
+          toast("Item added ");
+          BlocProvider.of<CubitProduct>(context).addav(data.id);
+        }, icon: Icon(Icons.favorite))
          ], 
          ),
       );

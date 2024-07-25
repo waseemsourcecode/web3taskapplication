@@ -22,6 +22,11 @@ class StateProductFailed extends StateProduct {
       {required this.reason});
 }
  
+ class StateProductLoadedFav extends StateProduct {
+  final List<ModelProduct> product; 
+  const StateProductLoadedFav(
+      {required this.product});
+}
  
  
  

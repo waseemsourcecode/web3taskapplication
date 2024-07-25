@@ -3,6 +3,7 @@ import 'package:web3shopping_app/clean_architech/features/presentation/screens/d
 import 'package:web3shopping_app/clean_architech/features/presentation/screens/dashboard/tabs/tab_explore.dart';
 
 import '../authorizatin/login/login_screen.dart';
+import 'tabs/tab_fav.dart';
 import 'tabs/tab_profile.dart';
 
 class HomeScreen extends StatefulWidget {
@@ -25,7 +26,9 @@ void _onItemTapped(int index) {
 static const List<Widget> _pages = <Widget>[
  TabHome(),
 TabExplore(),
-  TabProfile()
+ TabFav(),
+  TabProfile(),
+
 ];
   @override
   Widget build(BuildContext context) {
@@ -43,6 +46,10 @@ TabExplore(),
       BottomNavigationBarItem(
         icon: Icon(Icons.explore),
         label: 'Explore',
+      ),
+       BottomNavigationBarItem(
+        icon: Icon(Icons.favorite),
+        label: 'Favourite',
       ),
       BottomNavigationBarItem(
         icon: Icon(Icons.verified_user),

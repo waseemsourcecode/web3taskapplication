@@ -1,5 +1,8 @@
  
 
+import 'dart:convert';
+import 'dart:ffi';
+
 import 'package:hive/hive.dart';
 import 'package:web3shopping_app/clean_architech/features/data/ds_local/local_data_source.dart';
 import 'package:web3shopping_app/clean_architech/features/data/models/model_responsebox.dart';
@@ -157,6 +160,58 @@ class LocalDataSourceImpl implements LocalDataSource {
         return null;
     }
   }
+  
+  @override
+  void favouriteProduct(int id) {
+  try {
+      // final email = userCredentials[localSavingKeys.email.name];
+      final favpro = box.get(LocalSavingKeys.favouriteProduct);
+      onConsole("ISLOGIN $favpro");
+      if (favpro == null) { 
+      var arr = [];
+        arr.add(id);
+        final result = json.encode(arr);
+            onConsole("result $result");
+       box.put(LocalSavingKeys.favouriteProduct, result);
+       
+      } else {
+        final arrr = favpro as List;
+        arrr.add(id);
+       final result = json.encode(arrr);
+       box.put(LocalSavingKeys.favouriteProduct, result);
+        
+
+        
+      }
+    } catch (e) {
+      onConsole(e);
+         
+    }
+  }
+  
+  @override
+  List<dynamic> getFavID() {
+   try {
+      // final email = userCredentials[localSavingKeys.email.name];
+      final favpro = box.get(LocalSavingKeys.favouriteProduct);
+      onConsole("get $favpro");
+      if (favpro == null) { 
+     return  List.empty();
+       
+      } else {
+      final result = json.decode(favpro);// as List<int>;
+       onConsole("result $result");
+       return result;
+        
+
+        
+      }
+    } catch (e) {
+      onConsole(e);
+      return List.empty();
+         
+    }
+  }
 
    
 }
@@ -166,6 +221,8 @@ class LocalDataSourceImpl implements LocalDataSource {
 class LocalSavingKeys {  
   
   static var isLogin = "guestAgreed";
+  
+  static var favouriteProduct = "favpr";
   LocalSavingKeys._(); 
   static const username = "username";
   static const userID = "userID";
