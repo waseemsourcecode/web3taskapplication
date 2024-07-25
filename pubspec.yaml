@@ -46,6 +46,7 @@ dependencies:
   searchfield: ^1.0.0
   google_fonts: ^6.2.1
   equatable: ^2.0.5
+  patterns_canvas: ^0.4.0
 
 
   # The following adds the Cupertino Icons font to your application.
