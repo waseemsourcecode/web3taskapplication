@@ -49,7 +49,7 @@ class _StateLoginScreen extends State<TabProfile> {
               alignment: Alignment.center,
               child: Column(
                 children: [
-                  CustomLabel(text: "Profile", type: TextStyleType.f22_600),
+                  const CustomLabel(text: "Profile", type: TextStyleType.f22_600),
                   ClipRRect(
                       borderRadius: BorderRadius.circular(150),
                       child: Image.asset(
@@ -81,7 +81,7 @@ class _StateLoginScreen extends State<TabProfile> {
 BlocProvider.of<CubitProfile>(context).getProfile();
 }
 if(state is StateProfileLoading){
-return WidgetLoading();
+return const WidgetLoading();
 }
 if(state is StateProfileLoaded){
   return  Column(
@@ -90,14 +90,16 @@ if(state is StateProfileLoaded){
                             dimenVertical(20),
                             rowName("Email", state.user.email),
                             Padding(
-                                padding: EdgeInsets.only(
+                                padding: const EdgeInsets.only(
                                     top: 30, left: 50, right: 50),
                                 child: AppElevatedButton(
                                     onPressed: () {
                                       BlocProvider.of<CubitProfile>(context).logout();
+                                      toast("User logged out successfully");
+                                      AppNavigations.pushToInitial(context, AppScreens.login);
                                     },
                                     borderRadius: BorderRadius.circular(30),
-                                    child: CustomLabel(
+                                    child: const CustomLabel(
                                         text: "Logout?",
                                         forceColor: Colors.white,
                                         type: TextStyleType.f18_600)))
@@ -109,7 +111,7 @@ if(state is StateProfileFailed){
        BlocProvider.of<CubitProfile>(context).getProfile();
   });
 }
-return WidgetLoading();
+return const WidgetLoading();
                              }),
                              )
                              ) 
